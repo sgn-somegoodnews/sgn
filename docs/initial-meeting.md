@@ -1,9 +1,9 @@
 ## Todo
 
 
-[x] conhecer galera
-[ ] definir stack e infra etc
-[ ] definir mvp
+- [x] conhecer galera
+- [x] definir stack e infra etc
+- [x] definir mvp
 
 
 
