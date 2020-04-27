@@ -1,4 +1,5 @@
 class News {
   final String title;
-  News(this.title);
+  final String image;
+  News(this.title, this.image);
 }

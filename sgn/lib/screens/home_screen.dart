@@ -12,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final news = [News("News 1"), News("News 2")];
     return Scaffold(
         body: SafeArea(
             top: true,
@@ -21,8 +20,32 @@ class _HomeScreen extends State<HomeScreen> {
             right: false,
             child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                child: Row(
-                  children: news.map((news) => Story(news)).toList(),
-                ))));
+                child: _buildStories())));
+  }
+
+  Widget _buildStories() {
+    final news = [
+      News("Small title", "assets/smiling-little-girls.jpg"),
+      News("Big news title", "assets/woman.jpg"),
+      News("Big news title", "assets/woman.jpg"),
+      News("Big news title", "assets/woman.jpg"),
+      News("Big news title", "assets/woman.jpg"),
+      News("Big news title", "assets/woman.jpg"),
+    ];
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          child: Text(
+            "Stories",
+            style: TextStyle(fontSize: 22),
+          )),
+      Container(
+        height: MediaQuery.of(context).size.height * 0.3,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: news.map((news) => Story(news)).toList(),
+        ),
+      )
+    ]);
   }
 }
