@@ -8,23 +8,25 @@ class Story extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-        child: Container(
-            width: MediaQuery.of(context).size.width * 0.38,
-            decoration: _buildDecoration(),
-            child: Stack(children: [
-              Positioned(
-                  bottom: 10,
-                  left: 10,
+    final widthStory = MediaQuery.of(context).size.width * 0.38;
+    return Container(
+        width: widthStory,
+        decoration: _buildDecoration(),
+        child: Stack(children: [
+          Positioned(
+              bottom: 10,
+              left: 10,
+              child: Container(
+                  width: widthStory * 0.9,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                   child: Text(
                     news.title,
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
-                  ))
-            ])));
+                  )))
+        ]));
   }
 
   Decoration _buildDecoration() {
