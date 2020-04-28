@@ -3,5 +3,6 @@ class News {
   final String description;
   final DateTime date;
   final String image;
-  News(this.title, this.description, this.date, this.image);
+  final String text;
+  const News({ this.title, this.description, this.date, this.image, this.text });
 }
