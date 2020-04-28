@@ -25,7 +25,6 @@ class NewsFeedStore extends _NewsFeedStore with _$NewsFeedStore {
 
 // The store-class
 abstract class _NewsFeedStore with Store {
-  DateTime lastRefresh = DateTime.now();
   @observable
   ObservableList<News> fetchedNews = new ObservableList();
 
