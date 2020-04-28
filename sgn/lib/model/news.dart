@@ -1,7 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class News {
-  final String title;
-  final String description;
-  final DateTime date;
-  final String image;
-  News(this.title, this.description, this.date, this.image);
+  String headline;
+  String subheadline;
+  DateTime timestamp;
+  String image;
+  String text;
+
+  News.fromJson(Map<String, dynamic> json) {
+    
+    print(json.keys.toList().join(" - "));
+    
+    this.headline = json['headline'];
+    this.subheadline = json['subheadline'];
+    this.timestamp = (json['timestamp'] as Timestamp).toDate();
+    this.image = json['image'];
+    this.text = json['text'];
+  }
 }

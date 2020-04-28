@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "487475918809",
+    "firebase_url": "https://sgn-test-4066e.firebaseio.com",
+    "project_id": "sgn-test-4066e",
+    "storage_bucket": "sgn-test-4066e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487475918809:android:d8ecabb77a34a6dbefcbc8",
+        "android_client_info": {
+          "package_name": "app.somegoodnews.sgn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487475918809-tiau60qnapn3b8u216e1efjfe490khog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKi2K5qVuLDFoCzqN7JJidfSktHffZ4z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487475918809-tiau60qnapn3b8u216e1efjfe490khog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

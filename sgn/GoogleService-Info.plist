@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>487475918809-h0t4k58vj6kqb7kuv2m6qcbmtq8j3qqf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.487475918809-h0t4k58vj6kqb7kuv2m6qcbmtq8j3qqf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBvjnH7uXX61XHsLPiKO7iqc8fVmiCl1a4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>487475918809</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>app.somegoodnews.sgn</string>
+	<key>PROJECT_ID</key>
+	<string>sgn-test-4066e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sgn-test-4066e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:487475918809:ios:8b11aec422ea0f48efcbc8</string>
+	<key>DATABASE_URL</key>
+	<string>https://sgn-test-4066e.firebaseio.com</string>
+</dict>
+</plist>
