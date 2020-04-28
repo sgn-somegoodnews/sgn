@@ -16,17 +16,14 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            HomeAppBar(),
-            HomeSectionTitle("Stories"),
-            StoriesContainer(),
-            HomeSectionTitle("Some good news"),
-            HomeNewsFeed(),
-          ],
-        ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          HomeAppBar(),
+          HomeSectionTitle("Stories"),
+          StoriesContainer(),
+          HomeSectionTitle("Some good news"),
+          HomeNewsFeed(),
+        ],
       ),
     );
   }
@@ -45,6 +42,17 @@ class HomeAppBar extends StatelessWidget {
       expandedHeight: 50,
       backgroundColor: Colors.blue,
     );
+  }
+}
+
+class HomeContentPadding extends StatelessWidget {
+  final Widget child;
+  HomeContentPadding({this.child, Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 10), child: child);
   }
 }
 
@@ -70,11 +78,17 @@ class StoriesContainer extends StatelessWidget {
     final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
 
     return SliverToBoxAdapter(
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.3,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: Story.fromList(newsList),
+      child: HomeContentPadding(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.3,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: newsList
+                .map((news) => Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Story(news)))
+                .toList(),
+          ),
         ),
       ),
     );

@@ -7,9 +7,6 @@ class Story extends StatelessWidget {
 
   const Story(this.news, {Key key}) : super(key: key);
 
-  static List<Story> fromList(List<News> newList) =>
-      newList.map((news) => Story(news)).toList();
-
   @override
   Widget build(BuildContext context) {
     final widthStory = MediaQuery.of(context).size.width * 0.38;
