@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sgn/screens/home_screen/widgets/horizontal_news.dart';
 import 'package:sgn/stores/news_store.dart';
 
@@ -10,7 +11,7 @@ class HomeNewsFeed extends StatefulWidget {
 class _HomeNewsFeedState extends State<HomeNewsFeed> {
   @override
   Widget build(BuildContext context) {
-    final newsList = NewsFeedStore.of(context).fetchedNews;
+    final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -20,6 +21,7 @@ class _HomeNewsFeedState extends State<HomeNewsFeed> {
             child: HorizontalNews(news),
           );
         },
+        childCount: newsList.length
       ),
     );
   }

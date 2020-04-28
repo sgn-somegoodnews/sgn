@@ -1,4 +1,4 @@
-package com.example.sgn
+package app.somegoodnews.sgn
 
 import io.flutter.embedding.android.FlutterActivity
 

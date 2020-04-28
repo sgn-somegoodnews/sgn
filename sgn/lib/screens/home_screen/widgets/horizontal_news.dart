@@ -29,12 +29,12 @@ class HorizontalNews extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                DateFormat().format(news.date),
+                DateFormat().format(news.timestamp),
                 style: TextStyle(fontSize: 11, color: Colors.grey[700]),
               ),
-              Text(news.title,
+              Text(news.headline,
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
-              Text(news.description,
+              Text(news.subheadline,
                   style: TextStyle(fontSize: 12, color: Colors.grey[700])),
             ]));
   }
@@ -45,11 +45,11 @@ class HorizontalNews extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(news.image),
+              image: NetworkImage(news.image),
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(12),
           ),
-        ));
+        ),);
   }
 }

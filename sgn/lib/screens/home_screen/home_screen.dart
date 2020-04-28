@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sgn/screens/home_screen/widgets/news_feed.dart';
 import 'package:sgn/screens/home_screen/widgets/story.dart';
 import 'package:sgn/stores/news_store.dart';
@@ -21,6 +22,7 @@ class _HomeScreen extends State<HomeScreen> {
           slivers: <Widget>[
             HomeAppBar(),
             HomeSectionTitle("Stories"),
+            StoriesContainer(),
             HomeSectionTitle("Some good news"),
             HomeNewsFeed(),
           ],
@@ -65,20 +67,15 @@ class HomeSectionTitle extends StatelessWidget {
 class StoriesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final news = NewsFeedStore.of(context).fetchedNews;
+    final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: news
-            .map(
-              (news) => Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                child: Story(news),
-              ),
-            )
-            .toList(),
+    return SliverToBoxAdapter(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.3,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: Story.fromList(newsList),
+        ),
       ),
     );
   }

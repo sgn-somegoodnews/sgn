@@ -30,10 +30,10 @@ mixin _$NewsFeedStore on _NewsFeedStore, Store {
       ActionController(name: '_NewsFeedStore');
 
   @override
-  void refresh() {
+  void refresh(List<News> newsList) {
     final _$actionInfo = _$_NewsFeedStoreActionController.startAction();
     try {
-      return super.refresh();
+      return super.refresh(newsList);
     } finally {
       _$_NewsFeedStoreActionController.endAction(_$actionInfo);
     }

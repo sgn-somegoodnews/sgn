@@ -4,35 +4,44 @@ import 'package:sgn/model/news.dart';
 
 class Story extends StatelessWidget {
   final News news;
+
   const Story(this.news, {Key key}) : super(key: key);
+
+  static List<Story> fromList(List<News> newList) =>
+      newList.map((news) => Story(news)).toList();
 
   @override
   Widget build(BuildContext context) {
     final widthStory = MediaQuery.of(context).size.width * 0.38;
     return Container(
-        width: widthStory,
-        decoration: _buildDecoration(),
-        child: Stack(children: [
+      width: widthStory,
+      decoration: _buildDecoration(),
+      child: Stack(
+        children: [
           Positioned(
-              bottom: 10,
-              left: 10,
-              child: Container(
-                  width: widthStory * 0.9,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                  child: Text(
-                    news.title,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  )))
-        ]));
+            bottom: 10,
+            left: 10,
+            child: Container(
+              width: widthStory * 0.9,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              child: Text(
+                news.headline,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Decoration _buildDecoration() {
     return BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(news.image),
+        image: NetworkImage(news.image),
         fit: BoxFit.cover,
       ),
       borderRadius: BorderRadius.circular(12),

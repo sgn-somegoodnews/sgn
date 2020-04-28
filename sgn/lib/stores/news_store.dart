@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
@@ -8,21 +9,30 @@ part 'news_store.g.dart';
 
 // This is the class used by rest of your codebase
 class NewsFeedStore extends _NewsFeedStore with _$NewsFeedStore {
-
-  static Provider get provider => Provider(create: (_) => new NewsFeedStore());
-  static NewsFeedStore of(BuildContext context) => Provider.of<NewsFeedStore>(context);
+  NewsFeedStore() {
+    Firestore.instance.collection('news').snapshots().listen(
+      (data) {
+        final newsList = data.documents
+            .map(
+              (doc) => News.fromJson(doc.data),
+            )
+            .toList();
+        this.refresh(newsList);
+      },
+    );
+  }
 }
 
 // The store-class
 abstract class _NewsFeedStore with Store {
-
   DateTime lastRefresh = DateTime.now();
-
   @observable
   ObservableList<News> fetchedNews = new ObservableList();
 
   @action
-  void refresh() {
-    lastRefresh = DateTime.now();
+  void refresh(List<News> newsList) {
+    fetchedNews
+      ..clear()
+      ..addAll(newsList);
   }
 }
