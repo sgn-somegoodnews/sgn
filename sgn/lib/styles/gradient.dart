@@ -12,3 +12,10 @@ final transparentToBlack = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter
 );
+
+
+final transparentToBlack2 = LinearGradient(
+    colors: [Color(0x11000000), Color(0xEE000000),],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter
+);

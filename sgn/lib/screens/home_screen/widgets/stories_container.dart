@@ -17,14 +17,19 @@ class StoriesContainer extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.only(right: 16),
-            children: newsList
-                .map(
-                  (news) => Padding(
-                    padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: StoryThumbnail(news),
+            children: newsList.asMap().entries.map(
+              (entry) {
+                final index = entry.key;
+                final news = entry.value;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                  child: StoryThumbnail(
+                    news,
+                    index: index,
                   ),
-                )
-                .toList(),
+                );
+              },
+            ).toList(),
           ),
         ),
       ),
