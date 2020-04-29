@@ -7,7 +7,7 @@ part 'news_store.g.dart';
 // This is the class used by rest of your codebase
 class NewsFeedStore extends _NewsFeedStore with _$NewsFeedStore {
   NewsFeedStore() {
-    Firestore.instance.collection('news').snapshots().listen(
+    Firestore.instance.collection('news').orderBy('timestamp').snapshots().listen(
       (data) {
         final newsList = data.documents
             .map(
