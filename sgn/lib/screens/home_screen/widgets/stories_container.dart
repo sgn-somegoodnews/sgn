@@ -10,18 +10,20 @@ class StoriesContainer extends StatelessWidget {
     final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
 
     return SliverToBoxAdapter(
-      child: HomeContentPadding(
-        child: Container(
-          color: Colors.transparent,
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: newsList
-                .map((news) => Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    child: Story(news)))
-                .toList(),
-          ),
+      child: Container(
+        height: 186,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.only(right: 16),
+          children: newsList
+              .map(
+                (news) => Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                  child: Story(news),
+                ),
+              )
+              .toList(),
         ),
       ),
     );

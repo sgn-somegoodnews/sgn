@@ -14,15 +14,19 @@ class _HomeNewsFeedState extends State<HomeNewsFeed> {
   Widget build(BuildContext context) {
     final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
     return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        final news = newsList[index];
-        return HomeContentPadding(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-            child: HorizontalNews(news),
-          ),
-        );
-      }, childCount: newsList.length),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final news = newsList[index];
+          final isFirst = index == 0;
+          return HomeContentPadding(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0,isFirst ? 32 : 20),
+              child:  isFirst ? FirstNews(news)  : HorizontalNews(news),
+            ),
+          );
+        },
+        childCount: newsList.length,
+      ),
     );
   }
 }

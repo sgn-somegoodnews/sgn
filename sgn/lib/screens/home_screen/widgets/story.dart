@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sgn/model/news.dart';
+import 'package:sgn/styles/gradient.dart';
+import 'package:sgn/styles/text.dart';
 
 class Story extends StatelessWidget {
   final News news;
@@ -9,38 +11,60 @@ class Story extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widthStory = MediaQuery.of(context).size.width * 0.38;
-    return Container(
-      width: widthStory,
-      decoration: _buildDecoration(),
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 10,
-            left: 10,
-            child: Container(
-              width: widthStory * 0.9,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-              child: Text(
-                news.headline,
-                style: TextStyle(
+    return AspectRatio(
+      aspectRatio: 124 / 186,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.8),
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.8),
+            image: DecorationImage(
+              image: NetworkImage(news.image),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(gradient: transparentToBlack),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: news.headline.withStyle(
+                  TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-          )
-        ],
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
 
+/*  Positioned(
+  bottom: 10,
+  left: 10,
+  child: Container(
+  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+  child: Text(
+  news.headline,
+  style: TextStyle(
+  fontSize: 15,
+  fontWeight: FontWeight.bold,
+  color: Colors.white),
+  ),
+  ),
+  )*/
+
   Decoration _buildDecoration() {
     return BoxDecoration(
-      image: DecorationImage(
-        image: NetworkImage(news.image),
-        fit: BoxFit.cover,
-      ),
       borderRadius: BorderRadius.circular(12),
       // boxShadow: [
       //   BoxShadow(

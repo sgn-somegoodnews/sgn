@@ -13,6 +13,7 @@ dependencies:
   mobx: 1.1.1
   provider: 4.0.5+1
   cloud_firestore: 0.13.5
+  google_fonts: 1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -31,4 +32,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/ui/
 
