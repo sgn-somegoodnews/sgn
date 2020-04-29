@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sgn/screens/home_screen/home_screen.dart';
 import 'package:sgn/screens/home_screen/widgets/story.dart';
-import 'package:sgn/stores/news_store.dart';
+import 'package:sgn/stores/stories_store.dart';
 
 class StoriesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
+    final newsList = Provider.of<StoriesStore>(context).stories;
 
     return SliverToBoxAdapter(
       child: Container(
@@ -20,7 +19,7 @@ class StoriesContainer extends StatelessWidget {
               .map(
                 (news) => Padding(
                   padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                  child: Story(news),
+                  child: StoryThumbnail(news),
                 ),
               )
               .toList(),

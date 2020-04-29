@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/rendering/sliver_persistent_header.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/styles/gradient.dart';
-import 'package:sgn/widgets/navigate_back.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsDetails extends StatelessWidget {
   final News news;
@@ -33,13 +33,6 @@ class MoreInformationLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(boxShadow: [
-      //   BoxShadow(
-      //     color: Color(0xaa111111),
-      //     blurRadius: 2,
-      //     spreadRadius: 0.5,
-      //   ),
-      // ]),
       child: FlatButton(
         onPressed: _click,
         color: Colors.transparent,
@@ -55,8 +48,12 @@ class MoreInformationLink extends StatelessWidget {
     );
   }
 
-  void _click() {
-    // TODO: open default browser with url
+  void _click() async {
+    if (await canLaunch(news.url)) {
+    await launch(news.url);
+    } else {
+    throw 'Could not launch ${news.url}';
+    }
   }
 }
 

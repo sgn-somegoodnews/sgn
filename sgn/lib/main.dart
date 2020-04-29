@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sgn/screens/home_screen/home_screen.dart';
 import 'package:sgn/stores/news_store.dart';
+import 'package:sgn/stores/stories_store.dart';
 import 'package:sgn/theme.dart';
 
 void main() {
@@ -11,7 +12,10 @@ void main() {
   );
   runApp(
     MultiProvider(
-      providers: [Provider(create: (_) => new NewsFeedStore())],
+      providers: [
+        Provider(create: (_) => new NewsFeedStore()),
+        Provider(create: (_) => new StoriesStore()),
+      ],
       child: SgnApp(),
     ),
   );

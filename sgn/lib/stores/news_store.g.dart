@@ -9,21 +9,21 @@ part of 'news_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$NewsFeedStore on _NewsFeedStore, Store {
-  final _$fetchedNewsAtom = Atom(name: '_NewsFeedStore.fetchedNews');
+  final _$newsAtom = Atom(name: '_NewsFeedStore.news');
 
   @override
-  ObservableList<News> get fetchedNews {
-    _$fetchedNewsAtom.context.enforceReadPolicy(_$fetchedNewsAtom);
-    _$fetchedNewsAtom.reportObserved();
-    return super.fetchedNews;
+  ObservableList<News> get news {
+    _$newsAtom.context.enforceReadPolicy(_$newsAtom);
+    _$newsAtom.reportObserved();
+    return super.news;
   }
 
   @override
-  set fetchedNews(ObservableList<News> value) {
-    _$fetchedNewsAtom.context.conditionallyRunInAction(() {
-      super.fetchedNews = value;
-      _$fetchedNewsAtom.reportChanged();
-    }, _$fetchedNewsAtom, name: '${_$fetchedNewsAtom.name}_set');
+  set news(ObservableList<News> value) {
+    _$newsAtom.context.conditionallyRunInAction(() {
+      super.news = value;
+      _$newsAtom.reportChanged();
+    }, _$newsAtom, name: '${_$newsAtom.name}_set');
   }
 
   final _$_NewsFeedStoreActionController =
@@ -41,7 +41,7 @@ mixin _$NewsFeedStore on _NewsFeedStore, Store {
 
   @override
   String toString() {
-    final string = 'fetchedNews: ${fetchedNews.toString()}';
+    final string = 'news: ${news.toString()}';
     return '{$string}';
   }
 }

@@ -12,7 +12,7 @@ class HomeNewsFeed extends StatefulWidget {
 class _HomeNewsFeedState extends State<HomeNewsFeed> {
   @override
   Widget build(BuildContext context) {
-    final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
+    final newsList = Provider.of<NewsFeedStore>(context).news;
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
