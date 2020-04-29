@@ -1,10 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/model/news.dart';
-import 'package:sgn/widgets/navigate_back.dart';
 
 class NewsDetails extends StatelessWidget {
   final News news;
@@ -45,7 +43,9 @@ class MoreInformationLink extends StatelessWidget {
       //   ),
       // ]),
       child: FlatButton.icon(
-        onPressed: _click,
+        onPressed: () {
+          Navigator.pushNamed(context, '/newsDetailsContent');
+        },
         color: Color(0xffdddddd),
         icon: Icon(Icons.arrow_forward, color: Colors.redAccent),
         label: Text(
@@ -60,9 +60,7 @@ class MoreInformationLink extends StatelessWidget {
     );
   }
 
-  void _click() {
-    // TODO: open default browser with url
-  }
+
 }
 
 class NewsDetailsHeader extends StatelessWidget {
