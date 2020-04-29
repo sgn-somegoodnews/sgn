@@ -112,27 +112,35 @@ class FirstNews extends StatelessWidget {
   }
 
   Widget _buildTextualInfo(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 7),
-            child: news.headline.withStyle(Theme.of(context)
-                .textTheme
-                .headline1
-                .apply(color: Colors.white)),
-          ),
-          DateFormat().format(news.timestamp).withStyle(
-                TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: Color(0xFFF6F6F6),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NewsDetails(news: news)),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 7),
+              child: news.headline.withStyle(Theme.of(context)
+                  .textTheme
+                  .headline1
+                  .apply(color: Colors.white)),
+            ),
+            DateFormat().format(news.timestamp).withStyle(
+                  TextStyle(
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFFF6F6F6),
+                  ),
                 ),
-              ),
-        ],
+          ],
+        ),
       ),
     );
   }
