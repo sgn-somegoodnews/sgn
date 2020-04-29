@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sgn/screens/home_screen/widgets/news_feed.dart';
-import 'package:sgn/screens/home_screen/widgets/story.dart';
-import 'package:sgn/stores/news_store.dart';
+import 'package:sgn/screens/home_screen/widgets/stories_container.dart';
 import 'package:sgn/styles/text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,29 +65,6 @@ class HomeSectionTitle extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.fromLTRB(18, 40, 18, 10),
         child: text.withStyle(TextStyle(fontSize: 22)),
-      ),
-    );
-  }
-}
-
-class StoriesContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final newsList = Provider.of<NewsFeedStore>(context).fetchedNews;
-
-    return SliverToBoxAdapter(
-      child: HomeContentPadding(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: newsList
-                .map((news) => Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    child: Story(news)))
-                .toList(),
-          ),
-        ),
       ),
     );
   }

@@ -42,17 +42,17 @@ class Story extends StatelessWidget {
         fit: BoxFit.cover,
       ),
       borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey[600],
-          blurRadius: 5.0,
-          spreadRadius: 1.5,
-          offset: Offset(
-            1.0,
-            1.0,
-          ),
-        )
-      ],
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: Colors.grey[600],
+      //     blurRadius: 5.0,
+      //     spreadRadius: 1.5,
+      //     offset: Offset(
+      //       1.0,
+      //       1.0,
+      //     ),
+      //   )
+      // ],
     );
   }
 }

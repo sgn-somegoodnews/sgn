@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/model/news.dart';
+import 'package:sgn/screens/news_details.dart';
 
 class HorizontalNews extends StatelessWidget {
   final News news;
@@ -9,15 +10,25 @@ class HorizontalNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NewsDetails(news: news)),
+        );
+      },
+      child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(flex: 3, child: _buildSideImage(context)),
-              Expanded(flex: 7, child: _buildTextualInfo()),
-            ]));
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(flex: 3, child: _buildSideImage(context)),
+            Expanded(flex: 7, child: _buildTextualInfo()),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildTextualInfo() {
@@ -41,15 +52,16 @@ class HorizontalNews extends StatelessWidget {
 
   Widget _buildSideImage(BuildContext context) {
     return AspectRatio(
-        aspectRatio: 0.8,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(news.image),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(12),
+      aspectRatio: 0.8,
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(news.image),
+            fit: BoxFit.cover,
           ),
-        ),);
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
   }
 }
