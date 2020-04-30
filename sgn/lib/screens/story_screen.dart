@@ -7,6 +7,7 @@ import 'package:sgn/model/story.dart';
 import 'package:sgn/stores/stories_store.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
+import 'package:sgn/widgets/flat_link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoryScreen extends StatefulWidget {
@@ -223,42 +224,15 @@ class _StoryReadMoreState extends State<StoryReadMore> {
                   TextStyle(height: 1.4, color: Colors.white, fontSize: 16),
                 ),
               ),
-              MoreInformationLink(widget.story),
+              FlatLink(
+                  text: "${widget.story.callToAction ?? "Read more"} →",
+                  url: widget.story.link,
+                  textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple))
             ],
           )),
     );
-  }
-}
-
-class MoreInformationLink extends StatelessWidget {
-  final Story story;
-
-  MoreInformationLink(this.story, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 40),
-      child: FlatButton(
-        onPressed: _click,
-        color: Colors.transparent,
-        child: Text(
-          "${story.callToAction ?? "Read more"} →",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _click() async {
-    if (await canLaunch(story.link)) {
-      await launch(story.link);
-    } else {
-      throw 'Could not launch ${story.link}';
-    }
   }
 }

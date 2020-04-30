@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/styles/gradient.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sgn/widgets/flat_link.dart';
 
 class NewsDetails extends StatelessWidget {
   final News news;
@@ -23,38 +23,6 @@ class NewsDetails extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class MoreInformationLink extends StatelessWidget {
-  final News news;
-
-  MoreInformationLink({@required this.news, Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: FlatButton(
-        onPressed: _click,
-        color: Colors.transparent,
-        child: Text(
-          "Read more →",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.redAccent,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _click() async {
-    if (await canLaunch(news.url)) {
-      await launch(news.url);
-    } else {
-      throw 'Could not launch ${news.url}';
-    }
   }
 }
 
@@ -152,14 +120,17 @@ class NewsDetailsHeaderDelegate implements SliverPersistentHeaderDelegate {
     return max(0, (maxExtent - shrinkOffset) / (maxExtent - minExtent) - 0.4);
   }
 
+  // TODO
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return true;
   }
 
+  // TODO
   @override
   FloatingHeaderSnapConfiguration get snapConfiguration => null;
 
+  // TODO
   @override
   OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
 }
@@ -187,11 +158,19 @@ class NewsDetailsContent extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 )),
             Text(
-              "${news.text}",
+              news.text,
               style: TextStyle(
                   fontSize: 16, height: 1.4, color: Color(0xFF454545)),
             ),
-            MoreInformationLink(news: news)
+            FlatLink(
+              text: "Read more →",
+              url: news.url,
+              textStyle: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.redAccent,
+              ),
+            )
           ],
         ),
       ),
