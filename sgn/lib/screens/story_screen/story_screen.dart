@@ -51,6 +51,7 @@ class _StoryScreenState extends State<StoryScreen> {
       body: PageView.builder(
         controller: controller,
         itemCount: storiesList.length,
+        physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return StoryPage(
             storiesList[index],
@@ -84,23 +85,23 @@ class StoryPage extends StatefulWidget {
 }
 
 class _StoryPageState extends State<StoryPage> {
-  double opacity = 0.0;
-  ScrollController controller;
+  double opacity = 1.0;
+  ScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
-    controller = ScrollController();
-    controller.addListener(scroll);
+    scrollController = ScrollController();
+    scrollController.addListener(scroll);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
-  get alignment {
+  get backgroundImgAlignment {
     if (widget.index == widget.currentPageValue.floor()) {
       return Alignment(0.0 + (widget.currentPageValue - widget.index), 0.0);
     } else if (widget.index == widget.currentPageValue.floor() + 1) {
@@ -112,7 +113,7 @@ class _StoryPageState extends State<StoryPage> {
 
   void scroll() {
     setState(() {
-      opacity = controller.offset.clamp(0.0, 150.0) / 200.0;
+      opacity = 1 - scrollController.offset.clamp(0.0, 150.0) / 200.0;
     });
   }
 
@@ -123,12 +124,12 @@ class _StoryPageState extends State<StoryPage> {
       child: Stack(
         children: <Widget>[
           Opacity(
-            opacity: 1.0 - opacity,
+            opacity: opacity,
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  alignment: alignment,
+                  alignment: backgroundImgAlignment,
                   image: NetworkImage(widget.story.image),
                 ),
               ),
@@ -141,50 +142,59 @@ class _StoryPageState extends State<StoryPage> {
             padding:
                 const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
             child: CustomScrollView(
-              controller: controller,
+              controller: scrollController,
               physics: BouncingScrollPhysics(),
               slivers: <Widget>[
-                SliverFillViewport(
-                  viewportFraction: 0.9,
-                  padEnds: false,
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Stack(
-                        children: <Widget>[
-                          Positioned(
-                            bottom: 10,
-                            left: 10,
-                            right: 10,
-                            child: Container(
-                              padding: EdgeInsets.only(bottom: 40.0),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(color: Colors.white),
-                                ),
-                              ),
-                              child: widget.story.title.withStyle(
-                                TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  height: 1.4,
-                                  fontFamily:
-                                      GoogleFonts.robotoSlab().fontFamily,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                    childCount: 1,
-                  ),
-                ),
+                StoryHeader(widget.story.title),
                 StoryReadMore(widget.story),
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class StoryHeader extends StatelessWidget {
+  final String title;
+  StoryHeader(this.title, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillViewport(
+      viewportFraction: 0.9,
+      padEnds: false,
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return Stack(
+            children: <Widget>[
+              Positioned(
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 40.0),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  child: title.withStyle(
+                    TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      height: 1.4,
+                      fontFamily: GoogleFonts.robotoSlab().fontFamily,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        },
+        childCount: 1,
       ),
     );
   }

@@ -16,6 +16,7 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: <Widget>[
           HomeAppBar(),
           HomeSectionTitle("Stories"),
@@ -85,4 +86,3 @@ class HomeSectionTitle extends StatelessWidget {
     );
   }
 }
-

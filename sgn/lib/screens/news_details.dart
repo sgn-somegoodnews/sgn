@@ -16,6 +16,7 @@ class NewsDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: <Widget>[
           NewsDetailsHeader(news: news),
           NewsDetailsContent(news: news)
@@ -50,9 +51,9 @@ class MoreInformationLink extends StatelessWidget {
 
   void _click() async {
     if (await canLaunch(news.url)) {
-    await launch(news.url);
+      await launch(news.url);
     } else {
-    throw 'Could not launch ${news.url}';
+      throw 'Could not launch ${news.url}';
     }
   }
 }
