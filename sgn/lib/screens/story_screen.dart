@@ -12,8 +12,10 @@ import 'package:sgn/widgets/navigate_back.dart';
 
 class StoryScreen extends StatefulWidget {
   final int startingIndex;
+  final String tagHero;
 
-  const StoryScreen({Key key, this.startingIndex = 0}) : super(key: key);
+  const StoryScreen({this.tagHero = "", Key key, this.startingIndex = 0})
+      : super(key: key);
 
   @override
   _StoryScreenState createState() => _StoryScreenState();
@@ -54,15 +56,20 @@ class _StoryScreenState extends State<StoryScreen> {
         itemCount: storiesList.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
-          return StoryPage(
-            storiesList[index],
-            index: index,
-            currentPageValue: currentPageValue,
+          return GestureDetector(
+            onVerticalDragUpdate: dragUpdate,
+            child: StoryPage(
+              storiesList[index],
+              index: index,
+              currentPageValue: currentPageValue,
+            ),
           );
         },
       ),
     );
   }
+
+  void dragUpdate(DragUpdateDetails details) {}
 }
 
 class StoryPage extends StatefulWidget {
@@ -125,17 +132,19 @@ class _StoryPageState extends State<StoryPage> {
       child: Stack(
         children: <Widget>[
           Opacity(
-            opacity: opacity,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  alignment: backgroundImgAlignment,
-                  image: NetworkImage(widget.story.image),
+              opacity: opacity,
+              child: Hero(
+                tag: "openStoryAnimation${widget.index}",
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      alignment: backgroundImgAlignment,
+                      image: NetworkImage(widget.story.image),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
           Container(
             decoration: BoxDecoration(gradient: transparentToBlack2),
           ),

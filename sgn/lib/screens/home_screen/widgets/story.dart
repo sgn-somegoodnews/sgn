@@ -13,6 +13,8 @@ class StoryThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tagHero = "openStoryAnimation$index";
+
     return AspectRatio(
       aspectRatio: 124 / 186,
       child: InkWell(
@@ -20,38 +22,41 @@ class StoryThumbnail extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => StoryScreen(startingIndex: index)),
+                builder: (context) =>
+                    StoryScreen(tagHero: tagHero, startingIndex: index)),
           );
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.8),
-          child: Container(
-            constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.8),
-              image: DecorationImage(
-                image: NetworkImage(story.image),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(gradient: transparentToBlack),
+          child: Hero(
+            tag: tagHero,
+            child: Container(
+              constraints: BoxConstraints.expand(),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.8),
+                image: DecorationImage(
+                  image: NetworkImage(story.image),
+                  fit: BoxFit.cover,
                 ),
-                Positioned(
-                  bottom: 10,
-                  left: 10,
-                  right: 10,
-                  child: story.shortTitle.withStyle(
-                    TextStyle(
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(gradient: transparentToBlack),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                    child: story.shortTitle.withStyle(TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                    ),
-                  ),
-                )
-              ],
+                      decoration: TextDecoration.none,
+                    )),
+                  )
+                ],
+              ),
             ),
           ),
         ),
