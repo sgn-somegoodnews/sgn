@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sgn/screens/home_screen/home_screen.dart';
-import 'package:sgn/screens/story_screen/story_screen.dart';
+import 'package:sgn/screens/story_screen.dart';
 import 'package:sgn/stores/news_store.dart';
 import 'package:sgn/stores/stories_store.dart';
 import 'package:sgn/theme.dart';
@@ -32,7 +32,7 @@ class SgnApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
-        '/story' : (context) => StoryScreen(),
+        '/story': (context) => StoryScreen(),
       },
     );
   }

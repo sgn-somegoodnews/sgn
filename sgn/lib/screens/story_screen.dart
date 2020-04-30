@@ -8,7 +8,7 @@ import 'package:sgn/stores/stories_store.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
 import 'package:sgn/widgets/flat_link.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sgn/widgets/navigate_back.dart';
 
 class StoryScreen extends StatefulWidget {
   final int startingIndex;
@@ -139,6 +139,11 @@ class _StoryPageState extends State<StoryPage> {
           Container(
             decoration: BoxDecoration(gradient: transparentToBlack2),
           ),
+          Positioned(
+              right: 0,
+              top: 0,
+              child: PaddingNavigateBackButton(
+                  child: NavigateBackButton(iconData: Icons.close))),
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),

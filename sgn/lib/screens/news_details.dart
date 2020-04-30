@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/widgets/flat_link.dart';
+import 'package:sgn/widgets/navigate_back.dart';
 
 class NewsDetails extends StatelessWidget {
   final News news;
@@ -79,6 +80,10 @@ class NewsDetailsHeaderDelegate implements SliverPersistentHeaderDelegate {
                 ),
               ),
             ),
+            Positioned(
+                left: 0,
+                top: 0,
+                child: PaddingNavigateBackButton(child: NavigateBackButton())),
             Positioned(
               left: 16.0,
               right: 16.0,

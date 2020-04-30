@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sgn/model/story.dart';
-import 'package:sgn/screens/story_screen/story_screen.dart';
+import 'package:sgn/screens/story_screen.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
 
@@ -19,7 +19,8 @@ class StoryThumbnail extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => StoryScreen(startingIndex: index)),
+            MaterialPageRoute(
+                builder: (context) => StoryScreen(startingIndex: index)),
           );
         },
         child: ClipRRect(
