@@ -7,11 +7,19 @@ import 'package:sgn/screens/news_details.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
 
+final colorGradients = [
+  [const Color(0xFFe911b0), const Color(0xFF901532)],
+  [const Color(0xFF08c418), const Color(0xFFcbce04)],
+  [const Color(0xFF8104ce), const Color(0xFF5132ce)],
+  [const Color(0xFF000e6a), const Color(0xFF6caeff)],
+  [const Color(0xFFdc0000), const Color(0xFF0e0e0e)],
+];
 
 class HorizontalNews extends StatelessWidget {
   final News news;
+  final int index;
 
-  const HorizontalNews(this.news, {Key key}) : super(key: key);
+  const HorizontalNews(this.index, this.news, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +68,42 @@ class HorizontalNews extends StatelessWidget {
   }
 
   Widget _buildSideImage(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 116 / 134,
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(news.image),
-            fit: BoxFit.cover,
+    return Stack(
+      overflow: Overflow.visible,
+      children: [
+        Positioned(
+          top: -4.0,
+          left: -20.0,
+          child: RotationTransition(
+            turns: AlwaysStoppedAnimation(-45 / 360),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.32,
+              height: MediaQuery.of(context).size.width * 0.32,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(37),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 0.0),
+                  colors: colorGradients[index % colorGradients.length],
+                  tileMode: TileMode.repeated,
+                ),
+              ),
+            ),
           ),
-          borderRadius: BorderRadius.circular(12),
         ),
-      ),
+        AspectRatio(
+          aspectRatio: 116 / 134,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(news.image),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
