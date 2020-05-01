@@ -77,8 +77,7 @@ class _HomeNewsFeedState extends State<HomeNewsFeed> {
             return HomeContentPadding(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, isFirst ? 32 : 20),
-                child:
-                    isFirst ? FirstNews(news) : HorizontalNews(index - 1, news),
+                child: isFirst ? FirstNews(news) : HorizontalNews(index, news),
               ),
             );
           },

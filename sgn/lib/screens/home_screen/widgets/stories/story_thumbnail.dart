@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/story.dart';
 import 'package:sgn/screens/story_screen.dart';
 import 'package:sgn/styles/gradient.dart';
@@ -13,8 +14,6 @@ class StoryThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tagHero = "openStoryAnimation$index";
-
     return AspectRatio(
       aspectRatio: 124 / 186,
       child: InkWell(
@@ -22,14 +21,13 @@ class StoryThumbnail extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    StoryScreen(tagHero: tagHero, startingIndex: index)),
+                builder: (context) => StoryScreen(startingIndex: index)),
           );
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.8),
           child: Hero(
-            tag: tagHero,
+            tag: HerosTag.imageStory(index),
             child: Container(
               constraints: BoxConstraints.expand(),
               decoration: BoxDecoration(

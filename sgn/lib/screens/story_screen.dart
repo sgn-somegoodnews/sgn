@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/story.dart';
 import 'package:sgn/stores/stories_store.dart';
 import 'package:sgn/styles/gradient.dart';
@@ -12,10 +13,8 @@ import 'package:sgn/widgets/navigate_back.dart';
 
 class StoryScreen extends StatefulWidget {
   final int startingIndex;
-  final String tagHero;
 
-  const StoryScreen({this.tagHero = "", Key key, this.startingIndex = 0})
-      : super(key: key);
+  const StoryScreen({Key key, this.startingIndex = 0}) : super(key: key);
 
   @override
   _StoryScreenState createState() => _StoryScreenState();
@@ -136,7 +135,7 @@ class _StoryPageState extends State<StoryPage> {
           Opacity(
               opacity: opacity,
               child: Hero(
-                tag: "openStoryAnimation${widget.index}",
+                tag: HerosTag.imageStory(widget.index),
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(

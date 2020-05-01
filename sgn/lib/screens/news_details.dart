@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/widgets/flat_link.dart';
@@ -10,8 +11,10 @@ import 'package:sgn/widgets/navigate_back.dart';
 
 class NewsDetails extends StatelessWidget {
   final News news;
+  final int index;
 
-  NewsDetails({@required this.news, Key key}) : super(key: key);
+  NewsDetails({@required this.news, @required this.index, Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class NewsDetails extends StatelessWidget {
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: <Widget>[
-          NewsDetailsHeader(news: news),
+          NewsDetailsHeader(news: news, index: index),
           NewsDetailsContent(news: news)
         ],
       ),
@@ -29,99 +32,94 @@ class NewsDetails extends StatelessWidget {
 
 class NewsDetailsHeader extends StatelessWidget {
   final News news;
+  final int index;
 
-  NewsDetailsHeader({@required this.news, Key key}) : super(key: key);
+  NewsDetailsHeader({@required this.news, @required this.index, Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => SliverPersistentHeader(
         floating: false,
         pinned: true,
-        delegate: NewsDetailsHeaderDelegate(news),
+        delegate: NewsDetailsHeaderDelegate(index, news),
       );
 }
 
 class NewsDetailsHeaderDelegate implements SliverPersistentHeaderDelegate {
   final News news;
-
-  NewsDetailsHeaderDelegate(this.news);
+  final int index;
+  NewsDetailsHeaderDelegate(this.index, this.news);
 
   final double minExtent = 100;
   final double maxExtent = 450;
-
-  final double percExpandedStartOpaquingImg = 0.5;
-  final Color endBackgroundColor = Colors.black54;
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return ClipRRect(
-      borderRadius:
-          BorderRadius.circular(20 * _getPercExpandedUntilZero(shrinkOffset)),
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(news.image),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  gradient: orangeToRed
-                      .scale(1.0 - _getPercExpandedUntilZero(shrinkOffset))),
-            ),
-            Opacity(
-              opacity: _getPercExpandedUntilZero(shrinkOffset),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: transparentToBlack,
+        borderRadius:
+            BorderRadius.circular(20 * getPercExpandedUntilZero(shrinkOffset)),
+        child: Stack(children: [
+          Hero(
+              tag: HerosTag.imageNews(index),
+              child: Stack(children: [
+                Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                  image: NetworkImage(news.image),
+                  fit: BoxFit.cover,
+                ))),
+                Container(
+                  decoration: BoxDecoration(
+                      gradient: orangeToRed
+                          .scale(1.0 - getPercExpandedUntilZero(shrinkOffset))),
                 ),
-              ),
-            ),
-            Positioned(
-                left: 0,
-                top: 0,
-                child: PaddingNavigateBackButton(child: NavigateBackButton())),
-            Positioned(
+                Opacity(
+                  opacity: getPercExpandedUntilZero(shrinkOffset),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: transparentToBlack,
+                    ),
+                  ),
+                ),
+              ])),
+          Positioned(
+              left: 0,
+              top: 0,
+              child: PaddingNavigateBackButton(child: NavigateBackButton())),
+          Positioned(
               left: 16.0,
               right: 16.0,
-              bottom: 8 + _getPercExpandedUntilZero(shrinkOffset) * 12,
+              bottom: 8 + getPercExpandedUntilZero(shrinkOffset) * 12,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Opacity(
-                    opacity: _getPercExpandedUntilZero(shrinkOffset),
-                    child: Text(
-                      new DateFormat().format(news.timestamp),
-                      style: TextStyle(fontSize: 10, color: Colors.white70),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Opacity(
+                      opacity: getPercExpandedUntilZero(shrinkOffset),
+                      child: Text(
+                        new DateFormat().format(news.timestamp),
+                        style: TextStyle(fontSize: 10, color: Colors.white70),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      news.headline,
-                      style: Theme.of(context).textTheme.headline1.apply(
-                          color: Colors.white,
-                          fontSizeFactor:
-                              _getPercExpanded(shrinkOffset).clamp(0.6, 1.0)),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        news.headline,
+                        style: Theme.of(context).textTheme.headline1.apply(
+                            color: Colors.white,
+                            fontSizeFactor:
+                                getPercExpanded(shrinkOffset).clamp(0.6, 1.0)),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                  ])),
+        ]));
   }
 
-  double _getPercExpanded(double shrinkOffset) {
+  double getPercExpanded(double shrinkOffset) {
     return 1.0 - min(maxExtent - minExtent, shrinkOffset) / maxExtent;
   }
 
-  double _getPercExpandedUntilZero(double shrinkOffset) {
+  double getPercExpandedUntilZero(double shrinkOffset) {
     return max(0, (maxExtent - shrinkOffset) / (maxExtent - minExtent) - 0.4);
   }
 

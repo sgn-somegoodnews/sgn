@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/screens/news_details.dart';
 
@@ -28,7 +29,8 @@ class HorizontalNews extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NewsDetails(news: news)),
+          MaterialPageRoute(
+              builder: (context) => NewsDetails(news: news, index: index)),
         );
       },
       child: Container(
@@ -78,17 +80,18 @@ class HorizontalNews extends StatelessWidget {
             child:
                 RoundedSquare(colorGradients[index % colorGradients.length])),
         AspectRatio(
-          aspectRatio: 116 / 134,
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(news.image),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        )
+            aspectRatio: 116 / 134,
+            child: Hero(
+                tag: HerosTag.imageNews(index),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(news.image),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                )))
       ],
     );
   }
