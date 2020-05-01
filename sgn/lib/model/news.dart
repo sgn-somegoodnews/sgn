@@ -8,8 +8,15 @@ class News {
   String text;
   String url;
 
-  News.fromJson(Map<String, dynamic> json) {
+  News(
+      {this.headline,
+      this.subheadline,
+      this.timestamp,
+      this.image,
+      this.text,
+      this.url});
 
+  News.fromJson(Map<String, dynamic> json) {
     this.headline = json['headline'] ?? "No title";
     this.subheadline = json['subheadline'] ?? "";
     this.timestamp = (json['timestamp'] as Timestamp).toDate();

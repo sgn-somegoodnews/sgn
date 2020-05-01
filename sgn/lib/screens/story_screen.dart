@@ -3,11 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/story.dart';
 import 'package:sgn/stores/stories_store.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sgn/widgets/flat_link.dart';
+import 'package:sgn/widgets/navigate_back.dart';
 
 class StoryScreen extends StatefulWidget {
   final int startingIndex;
@@ -48,20 +50,27 @@ class _StoryScreenState extends State<StoryScreen> {
   Widget build(BuildContext context) {
     final storiesList = Provider.of<StoriesStore>(context).stories;
     return Scaffold(
-      body: PageView.builder(
+        body: Container(
+      color: Colors.black54,
+      child: PageView.builder(
         controller: controller,
         itemCount: storiesList.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
-          return StoryPage(
-            storiesList[index],
-            index: index,
-            currentPageValue: currentPageValue,
+          return GestureDetector(
+            onVerticalDragUpdate: dragUpdate,
+            child: StoryPage(
+              storiesList[index],
+              index: index,
+              currentPageValue: currentPageValue,
+            ),
           );
         },
       ),
-    );
+    ));
   }
+
+  void dragUpdate(DragUpdateDetails details) {}
 }
 
 class StoryPage extends StatefulWidget {
@@ -124,20 +133,27 @@ class _StoryPageState extends State<StoryPage> {
       child: Stack(
         children: <Widget>[
           Opacity(
-            opacity: opacity,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  alignment: backgroundImgAlignment,
-                  image: NetworkImage(widget.story.image),
+              opacity: opacity,
+              child: Hero(
+                tag: HerosTag.imageStory(widget.index),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      alignment: backgroundImgAlignment,
+                      image: NetworkImage(widget.story.image),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
           Container(
             decoration: BoxDecoration(gradient: transparentToBlack2),
           ),
+          Positioned(
+              right: 0,
+              top: 0,
+              child: PaddingNavigateBackButton(
+                  child: NavigateBackButton(iconData: Icons.close))),
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
@@ -223,42 +239,15 @@ class _StoryReadMoreState extends State<StoryReadMore> {
                   TextStyle(height: 1.4, color: Colors.white, fontSize: 16),
                 ),
               ),
-              MoreInformationLink(widget.story),
+              FlatLink(
+                  text: "${widget.story.callToAction ?? "Read more"} →",
+                  url: widget.story.link,
+                  textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple))
             ],
           )),
     );
-  }
-}
-
-class MoreInformationLink extends StatelessWidget {
-  final Story story;
-
-  MoreInformationLink(this.story, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 40),
-      child: FlatButton(
-        onPressed: _click,
-        color: Colors.transparent,
-        child: Text(
-          "${story.callToAction ?? "Read more"} →",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _click() async {
-    if (await canLaunch(story.link)) {
-      await launch(story.link);
-    } else {
-      throw 'Could not launch ${story.link}';
-    }
   }
 }

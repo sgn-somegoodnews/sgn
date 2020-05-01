@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
 
-class NavigateBackButton extends StatelessWidget {
+class PaddingNavigateBackButton extends StatelessWidget {
+  final Widget child;
+  PaddingNavigateBackButton({this.child, Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-        left: 10,
-        top: 10,
-        child: FlatButton.icon(
-            onPressed: () => _click(context),
-            icon: Icon(Icons.arrow_back),
-            label: null));
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+        child: child);
+  }
+}
+
+class NavigateBackButton extends StatelessWidget {
+  final Color color;
+  final IconData iconData;
+  final double size;
+  NavigateBackButton(
+      {this.color = Colors.white70,
+      this.iconData = Icons.arrow_back,
+      this.size = 25,
+      Key key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () => _click(context),
+        child: Icon(this.iconData, color: color, size: size));
   }
 
   void _click(context) {
