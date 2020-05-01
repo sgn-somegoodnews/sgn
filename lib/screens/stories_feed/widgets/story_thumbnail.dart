@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/story.dart';
-import 'package:sgn/screens/story_screen.dart';
+import 'package:sgn/screens/story_page_view/index.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
 
@@ -21,7 +21,7 @@ class StoryThumbnail extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => StoryScreen(startingIndex: index)),
+                builder: (context) => StoryPageView(startingIndex: index)),
           );
         },
         child: ClipRRect(

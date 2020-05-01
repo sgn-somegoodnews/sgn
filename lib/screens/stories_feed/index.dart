@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:sgn/screens/home_screen/widgets/stories/story_thumbnail.dart';
+import 'package:sgn/screens/stories_feed/widgets/story_thumbnail.dart';
 import 'package:sgn/stores/stories_store.dart';
 
-class StoriesContainer extends StatelessWidget {
+class StoriesFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newsList = Provider.of<StoriesStore>(context).stories;

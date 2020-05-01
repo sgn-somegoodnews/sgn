@@ -9,11 +9,11 @@ import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/widgets/flat_link.dart';
 import 'package:sgn/widgets/navigate_back.dart';
 
-class NewsDetails extends StatelessWidget {
+class NewsScreen extends StatelessWidget {
   final News news;
   final int index;
 
-  NewsDetails({@required this.news, @required this.index, Key key})
+  NewsScreen({@required this.news, @required this.index, Key key})
       : super(key: key);
 
   @override

@@ -4,16 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/news.dart';
-import 'package:sgn/screens/news_details.dart';
+import 'package:sgn/screens/news_screen/index.dart';
 import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
 
 final index = 0;
 
-class FirstNews extends StatelessWidget {
+class LargerNewsCard extends StatelessWidget {
   final News news;
 
-  const FirstNews(this.news, {Key key}) : super(key: key);
+  const LargerNewsCard(this.news, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class FirstNews extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => NewsDetails(news: news, index: index)),
+                builder: (context) => NewsScreen(news: news, index: index)),
           );
         },
         child: ClipRRect(

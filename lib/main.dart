@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sgn/screens/home_screen/home_screen.dart';
-import 'package:sgn/screens/story_screen.dart';
+import 'package:sgn/screens/news_feed/index.dart';
+import 'package:sgn/screens/stories_feed/index.dart';
+import 'package:sgn/screens/story_page_view/index.dart';
 import 'package:sgn/stores/news_store.dart';
 import 'package:sgn/stores/stories_store.dart';
-import 'package:sgn/theme.dart';
+import 'package:sgn/styles/theme.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -31,8 +32,10 @@ class SgnApp extends StatelessWidget {
       title: "SGN - Some good news",
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(),
-        '/story': (context) => StoryScreen(),
+        '/': (context) => NewsFeed(),
+        '/news': (context) => NewsFeed(),
+        '/stories': (context) => StoriesFeed(),
+        '/story': (context) => StoryPageView(),
       },
     );
   }

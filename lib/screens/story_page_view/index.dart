@@ -11,16 +11,16 @@ import 'package:sgn/styles/text.dart';
 import 'package:sgn/widgets/flat_link.dart';
 import 'package:sgn/widgets/navigate_back.dart';
 
-class StoryScreen extends StatefulWidget {
+class StoryPageView extends StatefulWidget {
   final int startingIndex;
 
-  const StoryScreen({Key key, this.startingIndex = 0}) : super(key: key);
+  const StoryPageView({Key key, this.startingIndex = 0}) : super(key: key);
 
   @override
-  _StoryScreenState createState() => _StoryScreenState();
+  _StoryPageViewState createState() => _StoryPageViewState();
 }
 
-class _StoryScreenState extends State<StoryScreen> {
+class _StoryPageViewState extends State<StoryPageView> {
   PageController controller;
   double currentPageValue = 0.0;
 

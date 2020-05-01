@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/config/heros_tag.dart';
 import 'package:sgn/model/news.dart';
-import 'package:sgn/screens/news_details.dart';
+import 'package:sgn/screens/news_screen/index.dart';
 
 import 'package:sgn/styles/text.dart';
 
@@ -17,11 +17,11 @@ final colorGradients = [
   [const Color(0xFFdc0000), const Color(0xFF0e0e0e)],
 ];
 
-class HorizontalNews extends StatelessWidget {
+class NewsCard extends StatelessWidget {
   final News news;
   final int index;
 
-  const HorizontalNews(this.index, this.news, {Key key}) : super(key: key);
+  const NewsCard(this.index, this.news, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class HorizontalNews extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => NewsDetails(news: news, index: index)),
+              builder: (context) => NewsScreen(news: news, index: index)),
         );
       },
       child: Container(
