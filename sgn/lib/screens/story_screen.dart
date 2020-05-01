@@ -51,7 +51,9 @@ class _StoryScreenState extends State<StoryScreen> {
   Widget build(BuildContext context) {
     final storiesList = Provider.of<StoriesStore>(context).stories;
     return Scaffold(
-      body: PageView.builder(
+        body: Container(
+      color: Colors.black54,
+      child: PageView.builder(
         controller: controller,
         itemCount: storiesList.length,
         physics: BouncingScrollPhysics(),
@@ -66,7 +68,7 @@ class _StoryScreenState extends State<StoryScreen> {
           );
         },
       ),
-    );
+    ));
   }
 
   void dragUpdate(DragUpdateDetails details) {}
