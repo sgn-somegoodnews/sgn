@@ -1,10 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/screens/news_details.dart';
 
-import 'package:sgn/styles/gradient.dart';
 import 'package:sgn/styles/text.dart';
 
 final colorGradients = [
@@ -72,25 +73,10 @@ class HorizontalNews extends StatelessWidget {
       overflow: Overflow.visible,
       children: [
         Positioned(
-          top: -4.0,
-          left: -20.0,
-          child: RotationTransition(
-            turns: AlwaysStoppedAnimation(-45 / 360),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.32,
-              height: MediaQuery.of(context).size.width * 0.32,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(37),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 0.0),
-                  colors: colorGradients[index % colorGradients.length],
-                  tileMode: TileMode.repeated,
-                ),
-              ),
-            ),
-          ),
-        ),
+            top: -4.0,
+            left: -20.0,
+            child:
+                RoundedSquare(colorGradients[index % colorGradients.length])),
         AspectRatio(
           aspectRatio: 116 / 134,
           child: Container(
@@ -108,73 +94,56 @@ class HorizontalNews extends StatelessWidget {
   }
 }
 
-class FirstNews extends StatelessWidget {
-  final News news;
+class RoundedSquare extends StatefulWidget {
+  final List<Color> colorGradient;
+  RoundedSquare(this.colorGradient);
 
-  const FirstNews(this.news, {Key key}) : super(key: key);
+  @override
+  _RoundedSquareState createState() => _RoundedSquareState();
+}
+
+class _RoundedSquareState extends State<RoundedSquare>
+    with SingleTickerProviderStateMixin {
+  Animation<double> animation;
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 1500), vsync: this);
+    animation = Tween<double>(begin: 0.0, end: pi / 4).animate(controller)
+      ..addListener(() {
+        setState(() {
+          // The state that has changed here is the animation object’s value.
+        });
+      });
+    controller.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: AspectRatio(
-        aspectRatio: 340 / 230,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(news.image),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(gradient: transparentToBlack),
-              ),
-              Positioned(
-                bottom: 10,
-                left: 10,
-                right: 10,
-                child: _buildTextualInfo(context),
-              ),
-            ],
+    return Transform.rotate(
+      angle: animation.value,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.32,
+        height: MediaQuery.of(context).size.width * 0.32,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(37),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment(0.8, 0.0),
+            colors: widget.colorGradient,
+            tileMode: TileMode.repeated,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildTextualInfo(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NewsDetails(news: news)),
-        );
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 7),
-              child: news.headline.withStyle(Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .apply(color: Colors.white)),
-            ),
-            DateFormat().format(news.timestamp).withStyle(
-                  TextStyle(
-                    fontSize: 11,
-                    fontStyle: FontStyle.italic,
-                    color: Color(0xFFF6F6F6),
-                  ),
-                ),
-          ],
-        ),
-      ),
-    );
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

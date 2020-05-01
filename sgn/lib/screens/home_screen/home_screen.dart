@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sgn/screens/home_screen/widgets/news_feed.dart';
-import 'package:sgn/screens/home_screen/widgets/stories_container.dart';
+import 'package:sgn/screens/home_screen/widgets/news/news_feed.dart';
+import 'package:sgn/screens/home_screen/widgets/stories/stories_container.dart';
 import 'package:sgn/styles/text.dart';
 
 class HomeScreen extends StatefulWidget {

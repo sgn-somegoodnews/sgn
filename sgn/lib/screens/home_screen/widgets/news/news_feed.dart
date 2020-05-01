@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sgn/model/news.dart';
 import 'package:sgn/screens/home_screen/home_screen.dart';
-import 'package:sgn/screens/home_screen/widgets/horizontal_news.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:sgn/screens/home_screen/widgets/news/first_news.dart';
+import 'package:sgn/screens/home_screen/widgets/news/horizontal_news.dart';
 import 'package:sgn/theme.dart';
 
 class HomeNewsFeed extends StatefulWidget {
