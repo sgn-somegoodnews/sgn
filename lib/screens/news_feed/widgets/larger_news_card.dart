@@ -28,7 +28,7 @@ class LargerNewsCard extends StatelessWidget {
         child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: AspectRatio(
-                aspectRatio: 340 / 230,
+                aspectRatio: 340 / 330,
                 child: Hero(
                     tag: HerosTag.imageNews(index),
                     child: Stack(children: [

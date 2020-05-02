@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sgn/model/news.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sgn/screens/news_feed/widgets/larger_news_card.dart';
 import 'package:sgn/screens/news_feed/widgets/news_card.dart';
+import 'package:sgn/stores/news_store.dart';
+import 'package:sgn/widgets/section_title.dart';
 
 class NewsFeed extends StatefulWidget {
   @override
   _NewsFeedState createState() => _NewsFeedState();
 }
 
-class HomeContentPadding extends StatelessWidget {
-  final Widget child;
-
-  HomeContentPadding({this.child, Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: child,
-    );
-  }
-}
-
 class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
+    return
+        //TODO: (mocked) Observer(builder: (context) =>
+        Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: SafeArea(
+              child: CustomScrollView(
+                physics: BouncingScrollPhysics(),
+                slivers: <Widget>[
+                  SliverToBoxAdapter(child: SectionTitle("Some good news")),
+                  buildContent(context),
+                ],
+              ),
+            ));
+    //);
+  }
+
+  Widget buildContent(BuildContext context) {
     final newsList = _getNews();
 
     if (newsList.isEmpty) {
@@ -50,28 +56,24 @@ class _NewsFeedState extends State<NewsFeed> {
       );
     }
 
-    return Observer(
-      builder: (_) => SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final news = newsList[index];
-            final isFirst = index == 0;
-            return HomeContentPadding(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, isFirst ? 32 : 20),
-                child: isFirst ? LargerNewsCard(news) : NewsCard(index, news),
-              ),
-            );
-          },
-          childCount: newsList.length,
-        ),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final news = newsList[index];
+          final isFirst = index == 0;
+          return Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, isFirst ? 32 : 20),
+            child: isFirst ? LargerNewsCard(news) : NewsCard(index, news),
+          );
+        },
+        childCount: newsList.length,
       ),
     );
   }
 
   List<News> _getNews() {
     // TODO: mocked
-    //final newsList = Provider.of<NewsFeedStore>(context).news;
+    // final newsList = Provider.of<NewsFeedStore>(context).news;
 
     final news = News(
         headline:

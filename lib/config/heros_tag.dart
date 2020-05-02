@@ -3,4 +3,6 @@ class HerosTag {
       "openStoryAnimation" + index.toString();
 
   static String imageNews(int index) => "openNewsAnimation" + index.toString();
+
+  static final String bottomNavigationBar = "bottomNavigationBar";
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sgn/screens/news_feed/index.dart';
-import 'package:sgn/screens/stories_feed/index.dart';
+import 'package:sgn/screens/index.dart';
+import 'package:sgn/screens/saved_news/index.dart';
 import 'package:sgn/screens/story_page_view/index.dart';
 import 'package:sgn/stores/news_store.dart';
 import 'package:sgn/stores/stories_store.dart';
@@ -32,9 +32,12 @@ class SgnApp extends StatelessWidget {
       title: "SGN - Some good news",
       initialRoute: '/',
       routes: {
-        '/': (context) => NewsFeed(),
-        '/news': (context) => NewsFeed(),
-        '/stories': (context) => StoriesFeed(),
+        //'/': (context) => SavedNews(),
+        '/': (context) => App(startPage: AppPage.NewsFeed),
+        '/news': (context) => App(startPage: AppPage.NewsFeed),
+        '/stories': (context) => App(startPage: AppPage.StoriesFeed),
+        '/saved': (context) => App(startPage: AppPage.Saved),
+        '/config': (context) => App(startPage: AppPage.Config),
         '/story': (context) => StoryPageView(),
       },
     );
