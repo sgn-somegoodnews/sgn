@@ -75,7 +75,7 @@ class _SavedNewsState extends State<SavedNews> {
                   SizedBox(
                     width: 15.0,
                   ),
-                  Text("${newsList.length} News",
+                  Text("${newsList.length} Saved",
                       style: TextStyle(color: Colors.blueAccent))
                 ],
               ),
@@ -87,6 +87,7 @@ class _SavedNewsState extends State<SavedNews> {
                   child: PageView.builder(
                     itemCount: newsList.length,
                     controller: controller,
+                    physics: BouncingScrollPhysics(),
                     reverse: true,
                     itemBuilder: (context, index) {
                       return Container();

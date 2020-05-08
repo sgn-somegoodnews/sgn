@@ -39,7 +39,7 @@ class _AppState extends State<App> {
           decoration: BoxDecoration(color: Color(0xffdddddd)),
           child: SizedBox.expand(
               child: PageView(
-                  physics: BouncingScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   controller: pageController,
                   onPageChanged: (index) {
                     setState(() => currentIndex = index);
